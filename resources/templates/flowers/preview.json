@@ -1,0 +1,48 @@
+{
+    "settings": {
+        "hero": {
+            "logo": "@image:kane-monogram-400x400.png",
+            "eyebrow": "THÂN MỜI TỚI DỰ BỮA TIỆC",
+            "groom_name": "Anh Tú",
+            "bride_name": "Phương Anh",
+            "date_badge": "14.09"
+        },
+        "invite": {
+            "heading": "TRÂN TRỌNG KÍNH MỜI",
+            "intro": "Đến dự buổi tiệc chung vui cùng gia đình chúng tôi",
+            "time": "10 GIỜ 00",
+            "day": "THỨ BẢY",
+            "lunar": "( Nhằm ngày 12 tháng 08 năm Giáp Thìn )",
+            "venue": "Tại : Khách Sạn Lâm Ký - 119 Quang Trung, TX Sơn Tây, TP Hà Nội",
+            "closing": "Sự hiện diện của quý khách là niềm vinh dự cho gia đình chúng tôi !"
+        },
+        "couple": {
+            "groom_name": "Anh Tú",
+            "groom_parents": "Con ông : Đỗ Văn Long\nCon bà : Nguyễn Thị Hằng",
+            "bride_name": "Phương Anh",
+            "bride_parents": "Con ông : Phan Hồng Quang\nCon bà : Đỗ Thị Nga"
+        },
+        "timeline": {
+            "t1_time": "09 : 00", "t1_title": "Đón khách",
+            "t2_time": "09 : 30", "t2_title": "Lễ Thành Hôn",
+            "t3_time": "10 : 00", "t3_title": "Khai tiệc",
+            "t4_time": "11 : 30", "t4_title": "Chụp ảnh cùng Cô Dâu & Chú Rể"
+        },
+        "gallery": {
+            "heading": "Album Ảnh",
+            "tagline": "Những khoảnh khắc đáng nhớ của chúng tôi.",
+            "images": [
+                "@image:z5583219519965_1979ad524e89caf71ef1f41338abea26-20240628124104-3bfic.jpg",
+                "@image:z5583219519901_5cc50ac8a4e76f0660d62ff4e1904c2d-20240628124104-v64oj.jpg",
+                "@image:z5583219470385_e91cc9b34b077fa1d5cc2ac5e89ef7e6-20240628124050-mvvma.jpg",
+                "@image:z5583219569766_68be02dfb4ecdba783b6f40c777811b3-20240628124112-6z5wp.jpg",
+                "@image:z5583219569680_31db69a10083dca6ee0f5eec5021912c-20240628124112-u47f3.jpg",
+                "@image:z5583219519953_3d5b2a614d9d83009837386f3a3f214f-20240628124104-a4qfb.jpg"
+            ]
+        },
+        "guestbook": { "enabled": true, "moderate": false, "heading": "Gửi Lời Chúc Mừng", "intro": "Để lại lời chúc tới Anh Tú & Phương Anh nhé!" },
+        "rsvp": { "enabled": true, "heading": "Xác Nhận Tham Dự", "intro": "Vui lòng xác nhận để chúng tôi chuẩn bị chu đáo.", "food_options": "Mặn, Chay" },
+        "music": { "autoplay": true, "loop": true }
+    },
+    "theme": {}
+}
