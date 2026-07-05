@@ -235,7 +235,10 @@ class LadiPageRenderer
         // Hide until hydration to avoid a flash of the template's demo content.
         $guard = '<style id="__inv_guard">html{visibility:hidden}</style>';
 
-        return $this->faviconLinks().$og.$guard.$vite;
+        // Strip the LadiPage "Powered by" badge the runtime injects.
+        $brand = '<style>.ladipage_powered_by{display:none!important}</style>';
+
+        return $this->faviconLinks().$og.$guard.$brand.$vite;
     }
 
     /**
