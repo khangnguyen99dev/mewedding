@@ -41,6 +41,7 @@ class LadiPageRenderer
         $ladi = $manifest['ladipage'] ?? [];
 
         $config = $this->buildConfig($settings, $ladi);
+        $config['images'] = array_merge($config['images'], $this->customImageMap($manifest, $settings));
         $seo = $this->seo($invitation, $settings);
 
         // Brand the tab: SEO title + site favicon (replaces the template's own).
@@ -135,6 +136,35 @@ class LadiPageRenderer
         );
 
         return $html;
+    }
+
+    /**
+     * Build the find-and-replace map for the auto-generated "custom_images"
+     * section: each replaced image's `match` path -> the uploaded image URL.
+     *
+     * @param array<string, mixed> $manifest
+     * @param array<string, mixed> $settings resolved settings
+     * @return array<string, string>
+     */
+    protected function customImageMap(array $manifest, array $settings): array
+    {
+        $map = [];
+
+        foreach ($manifest['sections']['custom_images']['fields'] ?? [] as $key => $def) {
+            $match = $def['match'] ?? null;
+            if (! $match) {
+                continue;
+            }
+
+            $url = data_get($settings, "custom_images.{$key}.web")
+                ?? data_get($settings, "custom_images.{$key}.full");
+
+            if ($url) {
+                $map[$match] = $url;
+            }
+        }
+
+        return $map;
     }
 
     /**

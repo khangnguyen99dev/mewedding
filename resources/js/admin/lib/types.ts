@@ -21,6 +21,10 @@ export interface FieldDef {
     default?: unknown;
     group?: string;
     options?: Array<{ value: string; label: string }>;
+    /** custom_images grid: the shipped image URL shown as the current value. */
+    original?: string;
+    /** custom_images grid: path the renderer matches to swap this image. */
+    match?: string;
 }
 
 export interface RepeaterDef {
@@ -32,6 +36,8 @@ export interface RepeaterDef {
 export interface SectionDef {
     label: string;
     icon?: string;
+    /** 'image_grid' renders fields as a replaceable-thumbnail grid. */
+    ui?: string;
     fields?: Record<string, FieldDef>;
     repeater?: RepeaterDef;
 }

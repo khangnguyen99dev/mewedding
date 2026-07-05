@@ -111,6 +111,14 @@ class TemplateRegistry
             $manifest['has_entry'] = File::exists($dir.'/index.blade.php') || File::exists($dir.'/index.html');
             $manifest['thumbnail_url'] = $this->thumbnailUrl($key, $manifest['thumbnail'] ?? null);
 
+            // LadiPage templates: expose every image in the HTML as a replaceable
+            // field so the couple can swap any picture (slider, backgrounds, ...).
+            if (($manifest['engine'] ?? 'blade') === 'ladipage') {
+                if ($section = $this->imageSection($key)) {
+                    $manifest['sections'] = array_merge($manifest['sections'], ['custom_images' => $section]);
+                }
+            }
+
             $templates[$key] = $manifest;
         }
 
@@ -131,6 +139,81 @@ class TemplateRegistry
         }
 
         return $decoded;
+    }
+
+    /**
+     * Build a synthetic "custom_images" section: one image field per unique image
+     * referenced in the template HTML. `match` is the path the client hydration
+     * uses to find-and-replace the image; `original` is the shipped picture shown
+     * in the editor as the current value.
+     *
+     * @return array<string, mixed>|null
+     */
+    protected function imageSection(string $key): ?array
+    {
+        $images = $this->scanImages($key);
+
+        if ($images === []) {
+            return null;
+        }
+
+        $fields = [];
+        foreach ($images as $img) {
+            $fields[$img['field']] = [
+                'type' => 'image',
+                'label' => $img['name'],
+                'original' => $img['url'],
+                'match' => $img['match'],
+            ];
+        }
+
+        return [
+            'label' => 'Ảnh trong mẫu',
+            'ui' => 'image_grid',
+            'fields' => $fields,
+        ];
+    }
+
+    /**
+     * Scan a template's index.html for every unique image it references.
+     *
+     * @return list<array{field: string, name: string, match: string, url: string}>
+     */
+    public function scanImages(string $key): array
+    {
+        $path = $this->templatePath($key).'/index.html';
+
+        if (! File::exists($path)) {
+            return [];
+        }
+
+        preg_match_all(
+            '#templates/'.preg_quote($key, '#').'/images/[^"\'\s)]+?\.(?:png|jpe?g|gif|webp)#i',
+            File::get($path),
+            $matches,
+        );
+
+        $base = (string) config('templates.asset_url');
+        $seen = [];
+        $out = [];
+
+        foreach ($matches[0] as $ref) {
+            $rel = ltrim($ref, '/'); // templates/{key}/images/xxx.jpg
+
+            if (isset($seen[$rel])) {
+                continue;
+            }
+            $seen[$rel] = true;
+
+            $out[] = [
+                'field' => 'img_'.substr(md5($rel), 0, 12),
+                'name' => basename($rel),
+                'match' => $rel,
+                'url' => $base !== '' ? $base.'/'.$rel : asset($rel),
+            ];
+        }
+
+        return $out;
     }
 
     protected function thumbnailUrl(string $key, ?string $thumbnail): ?string

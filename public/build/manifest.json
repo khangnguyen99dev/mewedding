@@ -1,6 +1,6 @@
 {
-  "_Spinner.vue_vue_type_script_setup_true_lang-iUp_hVcP.js": {
-    "file": "assets/Spinner.vue_vue_type_script_setup_true_lang-iUp_hVcP.js",
+  "_Spinner.vue_vue_type_script_setup_true_lang-Ck-BRpVM.js": {
+    "file": "assets/Spinner.vue_vue_type_script_setup_true_lang-Ck-BRpVM.js",
     "name": "Spinner.vue_vue_type_script_setup_true_lang",
     "imports": [
       "resources/js/admin/main.ts"
@@ -21,8 +21,8 @@
       "_pusher-BkXBgt9Z.js"
     ]
   },
-  "_invitations-xhmv6aZP.js": {
-    "file": "assets/invitations-xhmv6aZP.js",
+  "_invitations-D128uo7m.js": {
+    "file": "assets/invitations-D128uo7m.js",
     "name": "invitations",
     "imports": [
       "resources/js/admin/main.ts"
@@ -47,7 +47,7 @@
     "isDynamicEntry": true
   },
   "resources/css/admin.css": {
-    "file": "assets/admin-CGZ-6O8P.css",
+    "file": "assets/admin-C6sbx-UE.css",
     "src": "resources/css/admin.css",
     "isEntry": true,
     "name": "admin",
@@ -56,7 +56,7 @@
     ]
   },
   "resources/css/public.css": {
-    "file": "assets/public-Ddr6s4sw.css",
+    "file": "assets/public-B3tSK6J6.css",
     "src": "resources/css/public.css",
     "isEntry": true,
     "name": "public",
@@ -65,7 +65,7 @@
     ]
   },
   "resources/js/admin/layouts/AdminLayout.vue": {
-    "file": "assets/AdminLayout-YWAwsc6J.js",
+    "file": "assets/AdminLayout-BY16lw1O.js",
     "name": "AdminLayout",
     "src": "resources/js/admin/layouts/AdminLayout.vue",
     "isDynamicEntry": true,
@@ -75,7 +75,7 @@
     ]
   },
   "resources/js/admin/main.ts": {
-    "file": "assets/main-NYye6s0S.js",
+    "file": "assets/main-YqNV0UIe.js",
     "name": "main",
     "src": "resources/js/admin/main.ts",
     "isEntry": true,
@@ -96,7 +96,7 @@
     ]
   },
   "resources/js/admin/stores/templates.ts": {
-    "file": "assets/templates-CfGyzYDL.js",
+    "file": "assets/templates-B4UYWOuD.js",
     "name": "templates",
     "src": "resources/js/admin/stores/templates.ts",
     "isDynamicEntry": true,
@@ -106,47 +106,47 @@
     ]
   },
   "resources/js/admin/views/ChooseTemplateView.vue": {
-    "file": "assets/ChooseTemplateView-BAQ7NyU5.js",
+    "file": "assets/ChooseTemplateView-BwT2U0Yy.js",
     "name": "ChooseTemplateView",
     "src": "resources/js/admin/views/ChooseTemplateView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/admin/main.ts",
       "resources/js/admin/stores/templates.ts",
-      "_invitations-xhmv6aZP.js",
-      "_Spinner.vue_vue_type_script_setup_true_lang-iUp_hVcP.js",
+      "_invitations-D128uo7m.js",
+      "_Spinner.vue_vue_type_script_setup_true_lang-Ck-BRpVM.js",
       "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/admin/views/DashboardView.vue": {
-    "file": "assets/DashboardView-DMUupkby.js",
+    "file": "assets/DashboardView-BdxLMq8k.js",
     "name": "DashboardView",
     "src": "resources/js/admin/views/DashboardView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/admin/main.ts",
-      "_invitations-xhmv6aZP.js",
+      "_invitations-D128uo7m.js",
       "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/admin/views/EditorView.vue": {
-    "file": "assets/EditorView-BJlWp_8V.js",
+    "file": "assets/EditorView-CKOXm8gd.js",
     "name": "EditorView",
     "src": "resources/js/admin/views/EditorView.vue",
     "isDynamicEntry": true,
     "imports": [
       "_preload-helper-I4rgV-VL.js",
       "resources/js/admin/main.ts",
-      "_invitations-xhmv6aZP.js",
+      "_invitations-D128uo7m.js",
       "__commonjsHelpers-92s3wAHG.js",
-      "_Spinner.vue_vue_type_script_setup_true_lang-iUp_hVcP.js"
+      "_Spinner.vue_vue_type_script_setup_true_lang-Ck-BRpVM.js"
     ],
     "dynamicImports": [
       "resources/js/admin/stores/templates.ts"
     ]
   },
   "resources/js/admin/views/GuestsView.vue": {
-    "file": "assets/GuestsView-1NWQ6FwU.js",
+    "file": "assets/GuestsView-DRbSZ3aT.js",
     "name": "GuestsView",
     "src": "resources/js/admin/views/GuestsView.vue",
     "isDynamicEntry": true,
@@ -154,25 +154,25 @@
       "resources/js/admin/main.ts",
       "node_modules/laravel-echo/dist/echo.js",
       "_pusher-BkXBgt9Z.js",
-      "_Spinner.vue_vue_type_script_setup_true_lang-iUp_hVcP.js",
+      "_Spinner.vue_vue_type_script_setup_true_lang-Ck-BRpVM.js",
       "_preload-helper-I4rgV-VL.js",
       "__commonjsHelpers-92s3wAHG.js"
     ]
   },
   "resources/js/admin/views/InvitationsView.vue": {
-    "file": "assets/InvitationsView-CvyU0S_z.js",
+    "file": "assets/InvitationsView-B8etzGIh.js",
     "name": "InvitationsView",
     "src": "resources/js/admin/views/InvitationsView.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/admin/main.ts",
-      "_invitations-xhmv6aZP.js",
-      "_Spinner.vue_vue_type_script_setup_true_lang-iUp_hVcP.js",
+      "_invitations-D128uo7m.js",
+      "_Spinner.vue_vue_type_script_setup_true_lang-Ck-BRpVM.js",
       "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/admin/views/LoginView.vue": {
-    "file": "assets/LoginView-CjmVeZ4b.js",
+    "file": "assets/LoginView-LsTPJliR.js",
     "name": "LoginView",
     "src": "resources/js/admin/views/LoginView.vue",
     "isDynamicEntry": true,

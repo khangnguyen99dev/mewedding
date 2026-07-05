@@ -3,6 +3,7 @@ import { reactive } from 'vue';
 import type { SectionDef } from '@/admin/lib/types';
 import FieldRenderer from '@/admin/components/fields/FieldRenderer.vue';
 import RepeaterField from '@/admin/components/fields/RepeaterField.vue';
+import ImageGridPanel from '@/admin/components/fields/ImageGridPanel.vue';
 
 const props = defineProps<{
     sections: Record<string, SectionDef>;
@@ -55,28 +56,38 @@ function groupedFields(def: SectionDef) {
             </button>
 
             <div v-show="open[key]" class="space-y-5 border-t border-gray-100 px-4 py-4">
-                <!-- scalar fields, grouped -->
-                <div v-for="grp in groupedFields(def)" :key="grp.group" class="space-y-3">
-                    <p v-if="grp.group" class="text-xs font-bold tracking-wide text-brand-600 uppercase">{{ grp.group }}</p>
-                    <FieldRenderer
-                        v-for="f in grp.fields"
-                        :key="f.key"
-                        :field="f.def"
-                        :model-value="section(key)[f.key]"
-                        @update:model-value="setField(key, f.key, $event)"
-                    />
-                </div>
+                <!-- auto image grid: replace any picture in the template -->
+                <ImageGridPanel
+                    v-if="def.ui === 'image_grid'"
+                    :fields="def.fields ?? {}"
+                    :values="section(key)"
+                    @change="setField(key, $event.key, $event.value)"
+                />
 
-                <!-- repeater -->
-                <div v-if="def.repeater" class="space-y-2">
-                    <p class="text-sm font-semibold text-gray-700">{{ def.repeater.label ?? 'Danh sách' }}</p>
-                    <RepeaterField
-                        :item-fields="def.repeater.item_fields"
-                        :item-label="def.repeater.item_label"
-                        :model-value="section(key).items ?? []"
-                        @update:model-value="setItems(key, $event)"
-                    />
-                </div>
+                <template v-else>
+                    <!-- scalar fields, grouped -->
+                    <div v-for="grp in groupedFields(def)" :key="grp.group" class="space-y-3">
+                        <p v-if="grp.group" class="text-xs font-bold tracking-wide text-brand-600 uppercase">{{ grp.group }}</p>
+                        <FieldRenderer
+                            v-for="f in grp.fields"
+                            :key="f.key"
+                            :field="f.def"
+                            :model-value="section(key)[f.key]"
+                            @update:model-value="setField(key, f.key, $event)"
+                        />
+                    </div>
+
+                    <!-- repeater -->
+                    <div v-if="def.repeater" class="space-y-2">
+                        <p class="text-sm font-semibold text-gray-700">{{ def.repeater.label ?? 'Danh sách' }}</p>
+                        <RepeaterField
+                            :item-fields="def.repeater.item_fields"
+                            :item-label="def.repeater.item_label"
+                            :model-value="section(key).items ?? []"
+                            @update:model-value="setItems(key, $event)"
+                        />
+                    </div>
+                </template>
             </div>
         </div>
     </div>
