@@ -29,6 +29,12 @@ return [
     's3_disk' => env('TEMPLATE_S3_DISK', 's3'),
 
     /*
+    | Favicon for public invitation pages (relative to public/). Replaces the
+    | template's own favicon so every rendered invitation shows the site brand.
+    */
+    'favicon' => env('TEMPLATE_FAVICON', 'images/kane-monogram-400x400.png'),
+
+    /*
     | Blade view namespace the templates are registered under, so a template's
     | entry view is resolvable as `templates::{key}.index`.
     */

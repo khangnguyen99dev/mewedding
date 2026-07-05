@@ -43,6 +43,9 @@ class LadiPageRenderer
         $config = $this->buildConfig($settings, $ladi);
         $seo = $this->seo($invitation, $settings);
 
+        // Brand the tab: SEO title + site favicon (replaces the template's own).
+        $html = $this->applyBranding($html, $seo);
+
         // <body ...> -> add data hooks for the realtime/forms layer
         $html = preg_replace(
             '/<body\b/',
@@ -77,6 +80,37 @@ class LadiPageRenderer
             fn (array $m): string => $m[1].$base.'/'.$dir.'/',
             $html
         );
+    }
+
+    /**
+     * Brand the browser tab for the public page:
+     *  - set the document <title> to the invitation's SEO title (only the first
+     *    <title>; the template's inner "Music Player" <title> is left alone)
+     *  - remove the template's own favicons (ours is injected via head())
+     *
+     * @param array<string, mixed> $seo
+     */
+    protected function applyBranding(string $html, array $seo): string
+    {
+        $html = preg_replace(
+            '#<title>.*?</title>#is',
+            '<title>'.e($seo['title']).'</title>',
+            $html,
+            1
+        );
+
+        return preg_replace('#<link[^>]*rel="[^"]*icon[^"]*"[^>]*>#i', '', $html);
+    }
+
+    /**
+     * Favicon <link>s pointing at the configured site brand.
+     */
+    protected function faviconLinks(): string
+    {
+        $url = e(asset((string) config('templates.favicon')));
+
+        return '<link rel="icon" type="image/png" href="'.$url.'">'
+            .'<link rel="apple-touch-icon" href="'.$url.'">';
     }
 
     /**
@@ -201,7 +235,7 @@ class LadiPageRenderer
         // Hide until hydration to avoid a flash of the template's demo content.
         $guard = '<style id="__inv_guard">html{visibility:hidden}</style>';
 
-        return $og.$guard.$vite;
+        return $this->faviconLinks().$og.$guard.$vite;
     }
 
     /**
