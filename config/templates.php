@@ -15,6 +15,20 @@ return [
     'public_dir' => 'templates',
 
     /*
+    | Base URL template assets (images/fonts/media/js) are served from. When set,
+    | the renderer rewrites the template's absolute `/{public_dir}/...` references
+    | to `{asset_url}/{public_dir}/...` so assets load from S3/CDN instead of the
+    | app server. Leave empty to keep serving from the local public/ directory.
+    | e.g. https://kanewedding.s3.ap-southeast-1.amazonaws.com  or a CloudFront URL.
+    */
+    'asset_url' => rtrim((string) env('TEMPLATE_ASSET_URL', 'https://kanewedding.s3.ap-southeast-1.amazonaws.com'), '/'),
+
+    /*
+    | The filesystem disk `templates:sync --s3` uploads template assets to.
+    */
+    's3_disk' => env('TEMPLATE_S3_DISK', 's3'),
+
+    /*
     | Blade view namespace the templates are registered under, so a template's
     | entry view is resolvable as `templates::{key}.index`.
     */

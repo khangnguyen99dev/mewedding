@@ -4,9 +4,11 @@
  *  - LadiPage pixel-perfect templates (ladipage.ts), after hydration
  *
  * Everything is driven by data-attributes so it is template-agnostic.
+ *
+ * laravel-echo + pusher-js (~72KB) are NOT imported statically: they are
+ * dynamically imported inside initRealtime() so the realtime code splits into
+ * its own chunk and never blocks the invitation's first paint.
  */
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
 
 /* ----------------------------- Countdown ----------------------------- */
 function initCountdowns(): void {
@@ -167,10 +169,14 @@ function wireForms() {
         } catch (err: any) { setMsg(gb, err?.message ?? 'Có lỗi, thử lại.', false); }
     });
 }
-function initRealtime() {
+async function initRealtime(): Promise<void> {
     const id = document.body.dataset.invitation;
     if (!id || !import.meta.env.VITE_REVERB_APP_KEY) return;
     try {
+        const [{ default: Echo }, { default: Pusher }] = await Promise.all([
+            import('laravel-echo'),
+            import('pusher-js'),
+        ]);
         (window as any).Pusher = Pusher;
         const echo = new Echo({
             broadcaster: 'reverb', key: import.meta.env.VITE_REVERB_APP_KEY,
@@ -185,6 +191,15 @@ function initRealtime() {
     } catch { /* best-effort */ }
 }
 
+/** Run a non-critical task when the browser is idle (falls back to a timeout). */
+function whenIdle(fn: () => void): void {
+    const ric = (window as any).requestIdleCallback as
+        | ((cb: () => void, opts?: { timeout: number }) => void)
+        | undefined;
+    if (ric) ric(fn, { timeout: 3000 });
+    else window.setTimeout(fn, 1200);
+}
+
 /** Boot every interactive feature. Safe to call once after the DOM is ready. */
 export function bootPublic(): void {
     initCountdowns();
@@ -193,5 +208,7 @@ export function bootPublic(): void {
     initLightbox();
     loadInitial();
     wireForms();
-    initRealtime();
+    // Realtime (websocket + 72KB pusher chunk) is non-critical — defer to idle
+    // so it never competes with the initial render/hydration.
+    whenIdle(() => { void initRealtime(); });
 }

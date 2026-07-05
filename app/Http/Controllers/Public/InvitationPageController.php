@@ -12,7 +12,19 @@ use Illuminate\Support\Facades\DB;
 
 class InvitationPageController extends Controller
 {
+    public const HTML_CACHE_TTL_HOURS = 6;
+
     public function __construct(private readonly InvitationRenderer $renderer) {}
+
+    /**
+     * Cache key for a rendered invitation. The updated_at timestamp is baked in
+     * so any edit/publish produces a fresh key with no explicit invalidation.
+     * Shared with the `invitations:warm-cache` command so both stay in sync.
+     */
+    public static function htmlCacheKey(Invitation $invitation): string
+    {
+        return "inv:html:{$invitation->id}:{$invitation->updated_at?->timestamp}";
+    }
 
     /**
      * Render a published invitation at /{slug}.
@@ -29,8 +41,11 @@ class InvitationPageController extends Controller
 
         // Cache the rendered HTML. The key embeds updated_at, so any edit/publish
         // produces a new key automatically — no explicit invalidation needed.
-        $key = "inv:html:{$invitation->id}:{$invitation->updated_at?->timestamp}";
-        $html = Cache::remember($key, now()->addHours(6), fn () => $this->renderer->render($invitation));
+        $html = Cache::remember(
+            self::htmlCacheKey($invitation),
+            now()->addHours(self::HTML_CACHE_TTL_HOURS),
+            fn () => $this->renderer->render($invitation),
+        );
 
         return response($html);
     }

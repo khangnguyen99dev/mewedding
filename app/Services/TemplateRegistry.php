@@ -140,7 +140,9 @@ class TemplateRegistry
         }
 
         $dir = (string) config('templates.public_dir');
+        $path = "{$dir}/{$key}/{$thumbnail}";
+        $base = (string) config('templates.asset_url');
 
-        return asset("{$dir}/{$key}/{$thumbnail}");
+        return $base !== '' ? "{$base}/{$path}" : asset($path);
     }
 }

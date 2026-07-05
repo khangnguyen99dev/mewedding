@@ -28,6 +28,14 @@ class LadiPageRenderer
         $key = $invitation->template->key;
         $html = File::get(rtrim((string) config('templates.path'), '/')."/{$key}/index.html");
 
+        // Repoint the template's `/templates/...` asset references to S3/CDN so the
+        // browser loads images/fonts/media off-server. No-op when asset_url is empty.
+        $html = $this->rewriteAssetUrls($html);
+
+        // Strip dead weight LadiPage ships in <head>: legacy IE polyfills and
+        // preconnects to form/sales endpoints this app never calls.
+        $html = $this->trimHead($html);
+
         $sections = $manifest['sections'] ?? [];
         $settings = $this->resolver->resolve($sections, $invitation->settings ?? [], $invitation);
         $ladi = $manifest['ladipage'] ?? [];
@@ -45,6 +53,52 @@ class LadiPageRenderer
 
         $html = str_replace('</head>', $this->head($seo).'</head>', $html);
         $html = str_replace('</body>', $this->body($config).'</body>', $html);
+
+        return $html;
+    }
+
+    /**
+     * Rewrite absolute `/{public_dir}/...` asset references (src="", href="",
+     * url(...)) to the configured asset base URL (S3/CDN). Only touches paths that
+     * open with a quote or paren so unrelated substrings are never mangled.
+     */
+    protected function rewriteAssetUrls(string $html): string
+    {
+        $base = (string) config('templates.asset_url');
+
+        if ($base === '') {
+            return $html;
+        }
+
+        $dir = trim((string) config('templates.public_dir'), '/');
+
+        return preg_replace_callback(
+            '#(["\'(])/'.preg_quote($dir, '#').'/#',
+            fn (array $m): string => $m[1].$base.'/'.$dir.'/',
+            $html
+        );
+    }
+
+    /**
+     * Remove render-blocking dead weight from the LadiPage <head>:
+     *  - html5shiv/respond IE polyfills (useless on modern browsers, loaded
+     *    unconditionally as blocking third-party scripts)
+     *  - preconnect hints to LadiPage form/sales/analytics endpoints that this
+     *    app never contacts (it uses its own RSVP/guestbook API)
+     */
+    protected function trimHead(string $html): string
+    {
+        $html = preg_replace(
+            '#<script[^>]*src="https://w\.ladicdn\.com/[^"]*(?:html5shiv|respond)\.min\.js[^"]*"[^>]*></script>#i',
+            '',
+            $html
+        );
+
+        $html = preg_replace(
+            '#<link[^>]*rel="preconnect"[^>]*href="https://(?:api\d*\.ldpform\.com|api\.sales\.ldpform\.net|a\.ladipage\.com)/?"[^>]*>#i',
+            '',
+            $html
+        );
 
         return $html;
     }
