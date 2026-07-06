@@ -15,7 +15,7 @@ class DemoInvitationSeeder extends Seeder
         // Ensure templates are registered in the DB before building from them.
         Artisan::call('templates:sync');
 
-        $admin = User::where('email', 'admin@mewedding.test')->first();
+        $admin = User::where('email', 'admin@kanewedding.test')->first();
         if (! $admin) {
             return;
         }

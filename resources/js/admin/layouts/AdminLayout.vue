@@ -23,7 +23,7 @@ async function logout() {
         <aside class="fixed inset-y-0 left-0 hidden w-64 flex-col border-r border-gray-200 bg-white md:flex">
             <div class="flex h-16 items-center gap-2 border-b border-gray-100 px-6">
                 <span class="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-white">💍</span>
-                <span class="text-lg font-bold text-brand-700">meWedding</span>
+                <span class="text-lg font-bold text-brand-700">Kane Wedding</span>
             </div>
             <nav class="flex-1 space-y-1 p-4">
                 <RouterLink
@@ -51,7 +51,7 @@ async function logout() {
         <!-- Main -->
         <div class="flex-1 md:ml-64">
             <header class="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6 md:hidden">
-                <span class="font-bold text-brand-700">meWedding</span>
+                <span class="font-bold text-brand-700">Kane Wedding</span>
                 <button class="text-sm text-rose-600" @click="logout">Đăng xuất</button>
             </header>
             <main class="p-6">

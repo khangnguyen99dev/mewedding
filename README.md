@@ -1,4 +1,4 @@
-# meWedding — Wedding Invitation CMS
+# Kane Wedding — Wedding Invitation CMS
 
 A production-ready, **config-driven** wedding-invitation platform. Admins pick a template,
 configure every piece of content (text / images / music / colours / repeaters), and the public
@@ -76,7 +76,7 @@ composer dev
 
 Then open:
 
-- **Admin:** http://localhost:8000/admin  → `admin@mewedding.test` / `password`
+- **Admin:** http://localhost:8000/admin  → `admin@kanewedding.test` / `password`
 - **Public demo:** http://localhost:8000/nobel-demo and http://localhost:8000/flowers-demo
 
 Production build: `npm run build`, then `php artisan optimize` (config + route + view cache).

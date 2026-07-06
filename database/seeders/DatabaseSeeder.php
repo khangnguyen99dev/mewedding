@@ -18,19 +18,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $admin = User::updateOrCreate(
-            ['email' => 'admin@mewedding.test'],
+            ['email' => 'admin@kanewedding.test'],
             [
-                'name' => 'meWedding Admin',
-                'password' => Hash::make('password'),
+                'name' => 'Kane Wedding Admin',
+                'password' => Hash::make('KaneWedding@2026!#'),
             ],
         );
         $admin->syncRoles('admin');
 
         $editor = User::updateOrCreate(
-            ['email' => 'editor@mewedding.test'],
+            ['email' => 'editor@kanewedding.test'],
             [
-                'name' => 'meWedding Editor',
-                'password' => Hash::make('password'),
+                'name' => 'Kane Wedding Editor',
+                'password' => Hash::make('EditorWedding@2026!!'),
             ],
         );
         $editor->syncRoles('editor');

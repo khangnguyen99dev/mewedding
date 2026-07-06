@@ -9,8 +9,8 @@ const router = useRouter();
 const route = useRoute();
 const toast = useToasts();
 
-const email = ref('admin@mewedding.test');
-const password = ref('password');
+const email = ref('');
+const password = ref('');
 const remember = ref(true);
 const loading = ref(false);
 
@@ -33,7 +33,7 @@ async function submit() {
         <div class="w-full max-w-sm rounded-2xl bg-white p-8 shadow-xl">
             <div class="mb-6 text-center">
                 <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-xl bg-brand-600 text-2xl">💍</div>
-                <h1 class="text-xl font-bold text-brand-700">meWedding Admin</h1>
+                <h1 class="text-xl font-bold text-brand-700">Kane Wedding Admin</h1>
                 <p class="mt-1 text-sm text-gray-400">Quản lý thiệp cưới online</p>
             </div>
             <form class="space-y-4" @submit.prevent="submit">
